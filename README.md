@@ -15,6 +15,10 @@ Automatic Voice Commentary System for Online Video Lecture for Visually Impaired
 <br/>
 
 ## 프로젝트 배경
+<p align="center">
+<img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/background_img.png" height="250">
+</p>
+
 * 코로나 바이러스의 확산 방지를 위해 대다수의 교육기관에서 비대면 강의 시스템을 도입하였음
 * 동영상 강의는 비대면 강의 시스템의 많은 부분을 차지하고 있음
 * 그러나, 시각장애 학생들은 **동영상 강의의 화면에 무엇이 나오는지 알 수가 없어 강의 내용 이해도가 떨어지는 문제가 발생함**
@@ -26,18 +30,44 @@ Automatic Voice Commentary System for Online Video Lecture for Visually Impaired
 
 <br/>
 
-## 발표 영상 및 논문 링크
-[![Video Label](http://img.youtube.com/vi/qrxdCjk2UBw/0.jpg)](https://youtu.be/qrxdCjk2UBw)\
-논문 링크: [박동연, 강소정, 김유진 and 임순범. (2022). 시각장애 학생을 위한 온라인 동영상 강의의 자동 해설 시스템. 한국HCI학회 논문지, 17(2), 31-39.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002852907)
+## 처리 프로세스
+<p align="center">
+<img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/process_img.png" height="350">
+</p>
+
+1. 교수자가 **강의 동영상과 강의자료 파일을 업로드**함
+2. 서버에 구축되어 있는 시스템이 **강의 동영상 내 슬라이드 전환 시점을 도출하고, 해당 슬라이드가 강의자료의 몇 번째 페이지**에 해당하는지 유사도 매칭 알고리즘을 통해 파악
+3. 강의자료에서 **슬라이드별로 텍스트, 이미지, 표에 대해서 자동으로 해설을 제공**하는 비디오 파일을 생성
+4. 앞선 2단계에서 알아낸 슬라이드별 동영상 강의 내 등장시점 정보를 기반으로 직접 생성한 해설 비디오 파일과 원본 강의 **동영상을 조합 → 새로운 해설 비디오 파일 생성**
+5. 학생은 **키보드로 간편하게 조작할 수 있는 전용 플레이어**를 사용하여 해설 강의 동영상을 수강
+
+<br/>
+
+## 발표 영상 및 논문 (Click!)
+
+<p align="center">
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/video_button.png" height="300" href="https://youtu.be/qrxdCjk2UBw">&nbsp;
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/paper_img.png" height="300" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002852907"/>
+</p>
+
+<br/>
 
 ## 시연 예시 이미지
-원본 강의 업로드 (교수자 화면)
-<br>
-![image](https://user-images.githubusercontent.com/47679768/134172323-b0bc549e-510e-4ecd-a08a-a5a38300a38f.png)
+<p align="center">
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/result1_img.png" height="300"/>
+</p> 
 
-온라인 강의 플랫폼 홈페이지 (학생 화면)
-<br>
-![image](https://user-images.githubusercontent.com/47679768/134172390-1cfb1dfc-99e0-4309-9bb1-91243e829b6a.png)
+1. **원본 강의 업로드 및 해설 삽입 (교수자 화면)**: 교수자가 로그인하면 기존 LMS 시스템을 이용했던 것과 동일하게 동영상과 강의자료를 업로드하면, 본 시스템이 자동으로 이를 분석하여 슬라이드마다 해설을 삽입합니다
+2. **온라인 강의 플랫폼 홈페이지 (학생 화면)**: 학생이 LMS 시스템에 로그인하면, 기존과 동일하게 강좌목록을 확인할 수 있습니다. 여기서 **'해설 비디오 파일 재생' 버튼을 누르면 자동으로 해설이 제공되는 동영상을 전용 플레이어로 재생**할 수 있습니다
+  
+<br/>
+  
+<p align="center">
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/result2_img.png" height="300"/>
+</p>
+
+3. **원본 강의 동영상(mp4)**: 원본 강의 동영상은 아무런 해설이 제공되지 않는 교수자가 처음에 올린 동영상입니다
+4. **강의자료 해설이 제공되는 비디오 플레이어**: 강의자료 화면에 대해서 자동으로 해설이 제공되는 동영상을 효과적으로 이용 및 수강하기 위한 전용 플레이어의 모습입니다. 키보드로 간단하게 동작이 가능하며, 정안인 학생도 이용할 수 있도록 슬라이드 전환 시점 단위로 GUI를 구성하였습니다.
 
 <br/>
 
