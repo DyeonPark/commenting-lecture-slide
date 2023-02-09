@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Django File Upload</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'view_style.css' %}">
+
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+</head>
+<body>
+    <nav class="navbar">
+        <button class="navbar_logo" onclick = "location.href = '{% url 'upload:upload_files' %}' " title="메인 페이지 재로드 버튼">SNOWBOARD</button>
+        <ul>
+            <li><button class="username_design" title="마이페이지 버튼">Welcome, {{ user.username }} !</button></li>
+            <li><button class="logout_design" onclick = "location.href = '{% url 'common:login' %}' " title="로그아웃 버튼">LOGOUT</button></li>
+        </ul>
+    </nav>
+
+    <div class="introduce_box">
+        <span><i class="fas fa-user-circle fa-5x"></i></span>
+        <div class="introduce_box_info">
+            <div class="introduce_box_classname">UI/UX 설계</div>
+            <div class="introduce_box_profname">임순범 교수님</div>
+        </div>
+    </div>
+
+    <aside>
+        <div class="aside_category">강의실 홈</div>
+            <ul class="first_list">
+                <li>강의정보</li>
+                <ul class="inner_list">
+                    <li>강의계획서</li>
+                    <li>참여자목록</li>
+                </ul>
+                <li>성적/출석관리</li>
+                <ul class="inner_list">
+                    <li>온라인출석부</li>
+                    <li>성적부</li>
+                </ul>
+                <li>수강생 알림</li>
+                <ul class="inner_list">
+                    <li>쪽지 보내기</li>
+                </ul>
+                <li>강좌 관리</li>
+                <ul class="inner_list">
+                    <li>팀원</li>
+                </ul>
+            </ul>
+        <div class="aside_category">학습활동</div>
+            <ul class="second_list">
+                <li><i class="fas fa-save" style="color: #71B5CC"></i> &nbsp; 파일</li>
+                <li><i class="far fa-play-circle" style="color: #8B8884"></i> &nbsp; 콘텐츠메이커</li>
+                <li><i class="fas fa-sticky-note" style="color: #EA665A"></i> &nbsp; 과제</li>
+                <li><i class="fas fa-clipboard" style="color: #F3994E"></i> &nbsp; 게시판</li>
+                <li><i class="fas fa-link" style="color: #679ACD"></i> &nbsp; URL링크</li>
+                <li><i class="fas fa-check-circle" style="color: #C064A9"></i> &nbsp; 퀴즈</li>
+                <li><i class="fas fa-user-friends" style="color: #F5BB47"></i> &nbsp; 토론</li>
+                <li><i class="fas fa-folder" style="color: #F6B65C"></i> &nbsp; 폴더</li>
+                <li><i class="fas fa-pencil-alt" style="color: #F07A7A"></i> &nbsp; 표지</li>
+            </ul>
+    </aside>
+
+    <section>
+        {% for file in files %}
+            <div class="class_box">
+
+                <div class="class_title_box" title="강의제목: {{ file.title }}">
+                    <div class="class_title">{{ file.title }}</div>
+                </div>
+
+                <div class="class_inner_box">
+                    <a href="javascript:open_Origianl_Win({{ file.id }})" title="강의 동영상 재생">
+                        <i class="far fa-play-circle"></i> 강의 동영상 재생
+                    </a>
+                    <a href="/onlineclass/pdf_download/{{ file.id }}/" target="_blank" title="강의 자료 다운로드">
+                        <i class="fas fa-file-pdf"></i> 강의 자료 다운로드
+                    </a>
+                    <a href="javascript:open_Cmt_Win({{ file.id }})" title="해설 비디오 파일 재생">
+                        <i class="far fa-play-circle"></i> 해설 비디오 파일 재생
+                    </a>
+                    <a href="/onlineclass/txt_download/{{ file.id }}/" target="_blank" title="강의자료 해설 파일 다운로드">
+                        <i class="fas fa-file-alt"></i> 강의자료 해설 파일 다운로드
+                    </a>
+                </div>
+
+            </div>
+        {% endfor %}
+    </section>
+
+    <script language="javascript" type="text/javascript">
+        function open_Origianl_Win(file_id){
+            window.open(
+                "/onlineclass/original_video/"+file_id+"/",
+                "원본 강의 재생",
+                "left=120, top=5, width=1280, height=750, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
+            );
+        }
+        function open_Cmt_Win(file_id){
+            window.open(
+                "/onlineclass/commentor/"+file_id+"/",
+                "해설 강의 재생",
+                "left=120, top=25, width=1280, height=700, location=no, toolbar=no, menubar=no, scrollbars=no, resizable=yes"
+            );
+        }
+    </script>
+
+</body>
+</html>

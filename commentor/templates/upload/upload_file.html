@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Django File Upload</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'upload_style.css' %}">
+
+</head>
+<body>
+    <nav class="navbar">
+        <button class="navbar_logo" onclick = "location.href = '{% url 'upload:upload_files' %}' " title="메인 페이지 재로드 버튼">SNOWBOARD</button>
+        <ul>
+            <li><button class="username_design" title="마이페이지 버튼">Welcome, {{ user.username }} !</button></li>
+            <li><button class="logout_design" onclick = "location.href = '{% url 'common:login' %}' " title="로그아웃 버튼">LOGOUT</button></li>
+        </ul>
+    </nav>
+
+    <aside>
+        <div class="form_box">
+            <div id="form_title">
+                <div style="padding: 10px; font-size: 15pt; font-weight: bolder; text-align: center; display: table-cell; vertical-align: middle;">Submit a lecture file</div>
+            </div>
+            <form id="file_form" action="{% url 'upload:upload_files' %}" method="POST" enctype="multipart/form-data">
+                <div id="form_inner_box">
+                    <div class="form_text">Lecture Title</div>
+                    <input class="text_input" type="text" name="fileTitle" placeholder="Enter a title">
+                    <div class="form_text">Choose Lecture Video(.mp4)</div>
+                    <input class="text_input" type="file" name="videoFile">
+                    <div class="form_text">Choose Lecture Material(.pdf)</div>
+                    <input class="text_input" type="file" name="docFile">
+                    {% csrf_token %}
+                </div>
+                <button id="submit_bnt" type="submit" value="Upload" onclick="move()">Upload</button>
+            </form>
+        </div>
+    </aside>
+
+    <section>
+        <h1>Task Loading</h1>
+
+        <div id="myProgress">
+        <div id="myBar">
+            <div id="label">{{progress_num}}%</div>
+        </div>
+        </div>
+
+        <h3 id="pro_text">진행상태 {{progress_num}}%</h3>
+        <p>{{user_name}}</p>
+
+        <h1>Lecture list uploaded to server</h1>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Video File Path</th>
+                <th>Doc File Path</th>
+                <th>Upload Date & Time</th>
+            </tr>
+            {% for file in files %}
+                <tr>
+                    <td>{{ file.id }}</td>
+                    <td>{{ file.title }}</td>
+                    <td>{{ file.videoFile.url }}</td>
+                    <td>{{ file.docFile.url }}</td>
+                    <td>{{ file.dateTimeOfUpload }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+<script>
+    function move() {
+        var elem = document.getElementById("myBar");
+        var pro_text = document.getElementById("pro_text");
+        var width = 0;
+        var id = setInterval(frame, {{sertime}});
+        function frame() {
+            if (width >= 100) {
+            clearInterval(id);
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 완료되었습니다.';
+            }
+            else if(width <= 10){
+            width++;
+            elem.style.width = width + '%';
+            document.getElementById("label").innerHTML = width * 1  + '%';
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 파일 업로드 요청을 하고 있습니다.';
+            }
+            else if(width <= 20){
+            width++;
+            elem.style.width = width + '%';
+            document.getElementById("label").innerHTML = width * 1  + '%';
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 파일을 저장하고 있습니다.';
+            }
+            else if(width <= 70){
+            width++;
+            elem.style.width = width + '%';
+            document.getElementById("label").innerHTML = width * 1  + '%';
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 저장된 파일로 commentor 서비스를 실행하고 있습니다.';
+            }
+            else if(width <= 85){
+            width++;
+            elem.style.width = width + '%';
+            document.getElementById("label").innerHTML = width * 1  + '%';
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 부가 파일들 저장하고 있습니다.';
+            }
+            else if(width < 100){
+            width++;
+            elem.style.width = width + '%';
+            document.getElementById("label").innerHTML = width * 1  + '%';
+            document.getElementById("pro_text").innerHTML = '진행상태 ' + width * 1  + '% : 부가 파일들 경로를 db에 저장하고 있습니다.';
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>해설 강의 동영상 재생</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'commentor_style.css' %}">
+
+    <!-- Bootstrap cdn 설정 -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+<body>
+    <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+    <nav>
+        <h1 title="강의 제목">[VIDEO] {{ doc.title }}</h1>
+        <button title="창 닫기" onclick = "window.close()">CLOSE</button>
+    </nav>
+
+    <section>
+        <video src={{ helper.helper_video.url }} id="myVideo" controls loop preload></video><br/>
+        <div class="butt">
+            <button id="prevSlide">|◀◀ 이전 장면</button>
+            <button id="prevPlay"><i class="fas fa-undo"></i> 6초 전</button>
+            <button id="videoPlay">재생 ▶</button>
+            <button id="now_skip">현재 슬라이드 설명 생략 <i class="fas fa-cut"></i></button>
+            <button id="videoStop">일시정지 ||</button>
+            <button id="nextPlay">6초 후 <i class="fas fa-redo"></i></button>
+            <button id="nextSlide">다음 장면 ▶▶|</button>
+        </div>
+    </section>
+
+    <aside>
+        <h1>SLIDE LIST of VIDEO</h1>
+        <h3>슬라이드 번호를 클릭하면 해당 시점으로 이동합니다</h3>
+
+        <!--재생 옵션-->
+        <div class="option_box">
+            <div class="option_box_title">VIDEO SPEED CONTROL OPTIONS</div>
+            <form method="get" action="form-action.html">
+                <label><input type="radio" name="speed_opt" value="1.0" title="1.0배 속도조절 버튼" tabindex="1" checked>x1.0</label>
+                <label><input type="radio" name="speed_opt" value="1.2" title="1.2배 속도조절 버튼" tabindex="2">x1.2</label>
+                <label><input type="radio" name="speed_opt" value="1.4" title="1.4배 속도조절 버튼" tabindex="3">x1.4</label>
+                <label><input type="radio" name="speed_opt" value="1.6" title="1.6배 속도조절 버튼" tabindex="4">x1.6</label>
+                <label><input type="radio" name="speed_opt" value="1.8" title="1.8배 속도조절 버튼" tabindex="5">x1.8</label>
+                <label><input type="radio" name="speed_opt" value="2.0" title="2.0배 속도조절 버튼" tabindex="6">x2.0</label>
+            </form>
+        </div>
+
+        <!--슬라이드 목록 리스트가 생성될 공간-->
+        <ol id='fruits'></ol>
+    </aside>
+
+    <script>
+    // video 오브젝트를 취득함.
+    var video = document.getElementById("myVideo");
+
+    var vid = document.getElementById("myVideo");
+    var arr = new Array();
+    var now_skip_array = new Array();
+
+    // 키보드 조작 이벤트
+    window.onkeydown = function()   {
+        if(event.keyCode == 37){ //좌 - 6초 전으로 이동
+            video.currentTime-=6;
+        } else if(event.keyCode == 39){ //우 - 6초 후로 이동
+            video.currentTime+=6;
+        } else if(event.keyCode == 38){ //상 - 이전 장면으로 이동
+            event.preventDefault();
+            var time_cur = video.currentTime;
+            time_cur *= 1;
+            for(k = 0; k < arr.length-1; k++) {
+
+              if(arr[k]<= time_cur && arr[k+1] > time_cur){
+                video.currentTime = arr[k-1];
+                break;
+              }
+              if(time_cur > arr[arr.length-1]){
+                video.currentTime = arr[arr.length-2];
+                break;
+              }
+            }
+
+        } else if(event.keyCode == 40){ //하 - 이후 장면으로 이동
+            event.preventDefault();
+            var time_cur = video.currentTime;
+            time_cur *= 1;
+            for(k = 0; k < arr.length-1; k++) {
+                if(arr[k]<= time_cur && time_cur < arr[k+1]){
+                    video.currentTime = arr[k+1];
+                    console.log(video.currentTime);
+                    break;
+                }
+                if(time_cur > arr[arr.length-1]){
+                    video.currentTime = video.duration;
+                    break;
+                }
+            }
+        }
+        else if(event.keyCode == 13){  // 엔터키 - 현재 슬라이드 생략
+                  var time_cur = video.currentTime;
+                  time_cur *= 1;
+
+                  for(k = 0; k < now_skip_array.length; k++) {
+
+                    if(time_cur <= now_skip_array[k]){
+                      video.currentTime = now_skip_array[k];
+                      console.log(video.currentTime);
+                      break;
+                    }
+                  }
+                }
+        else if(event.keyCode == 32){  // 스페이스바
+          if (video.paused) {
+            event.preventDefault();
+            video.play();
+          }
+          else {
+            event.preventDefault();
+            video.pause();
+            }
+
+        }
+
+      };
+
+
+    //6초 전 클릭
+    $("#prevPlay").on("click", function() {
+        video.currentTime-=6;
+    });
+
+    //재생 클릭
+    $("#videoPlay").on("click", function() {
+        video.play();
+    });
+
+    //일시정지 클릭
+    $("#videoStop").on("click", function() {
+        video.pause();
+    });
+
+    //6초 후 클릭
+    $("#nextPlay").on("click", function() {
+        video.currentTime+=6;
+    });
+
+    //이전 슬라이드
+    $("#prevSlide").on("click", function() {
+      var time_cur = video.currentTime;
+      time_cur *= 1;
+      for(k = 0; k < arr.length-1; k++) {
+
+        if(arr[k]<= time_cur && arr[k+1] > time_cur){
+          video.currentTime = arr[k-1];
+          break;
+        }
+        if(time_cur > arr[arr.length-1]){
+          video.currentTime = arr[arr.length-2];
+          break;
+        }
+      }
+    });
+
+
+    //다음 슬라이드
+    $("#nextSlide").on("click", function() {
+      var time_cur = video.currentTime;
+      time_cur *= 1;
+      //console.log(time_cur);
+      //console.log(arr.length);
+      //console.log(video.duration);
+      for(k = 0; k < arr.length-1; k++) {
+
+        if(arr[k]<= time_cur && time_cur < arr[k+1]){
+          video.currentTime = arr[k+1];
+          console.log(video.currentTime);
+          break;
+        }
+        if(time_cur > arr[arr.length-1]){
+          video.currentTime = video.duration;
+          break;
+        }
+      }
+    });
+
+    //현재 슬라이드 설명 생략
+    $("#now_skip").on("click", function() {
+          var time_cur = video.currentTime;
+          time_cur *= 1;
+
+          for(k = 0; k < now_skip_array.length; k++) {
+
+            if(time_cur <= now_skip_array[k]){
+              video.currentTime = now_skip_array[k];
+              console.log(video.currentTime);
+              break;
+            }
+
+            if(time_cur > now_skip_array[now_skip_array.length-1]){
+              video.currentTime = video.duration;
+              break;
+            }
+
+          }
+        });
+
+
+    //속도 조절을 위한 radio 버튼 클릭 이벤트
+    $("input:radio[name=speed_opt]").click(function(){
+
+        if($("input:radio[name=speed_opt]:checked").val()=='1.0'){
+            video.playbackRate = 1.0
+
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.2'){
+            video.playbackRate = 1.2
+
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.4'){
+            video.playbackRate = 1.4
+
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.6'){
+            video.playbackRate = 1.6
+
+        }else if($("input:radio[name=speed_opt]:checked").val()=='1.8'){
+            video.playbackRate = 1.8
+
+        }else{ // 2.0
+            video.playbackRate = 2.0
+
+        }
+    });
+
+    function getCurTime() {
+        alert(vid.currentTime);
+    }
+
+    $.ajax({
+    url: '{{helper.helper_csv.url}}',
+    dataType: 'text',
+    }).done(successFunction);
+
+    function successFunction(data) {
+      var read_buffer = XLSX.read(data, {type : 'binary'});
+
+      read_buffer.SheetNames.forEach(function(sheetName){
+        var rowdata =XLSX.utils.sheet_to_json(read_buffer.Sheets[sheetName]);
+        objKeyArr = Object.keys(rowdata);
+        var title_list = [];
+
+        for(C = 0; C < objKeyArr.length; ++C) {
+          console.log("mix_time : "+ JSON.stringify(rowdata[C].mix_time));
+          arr[C] = JSON.stringify(rowdata[C].mix_time);
+          console.log("lec_by_slide_time : "+ JSON.stringify(rowdata[C].lec_by_slide_time));
+          now_skip_array[C] = JSON.stringify(rowdata[C].lec_by_slide_time);
+          title_list.push(JSON.stringify(rowdata[C].slide_title));
+        }
+
+        for(B = 0; B < objKeyArr.length; ++B) {
+
+          const addValue = B;
+
+          // 2. 추가할 li element 생성
+          // 2-1. 추가할 li element 생성
+          const li = document.createElement("li");
+
+
+          // 2-2. li에 id 속성 추가
+          li.setAttribute('id',addValue);
+          li.setAttribute('tabindex', 7+B);
+          li.setAttribute('onkeypress',"JavaScript:press(this.form)")
+
+          // 2-3. li에 text node 추가
+          const textNode = document.createTextNode(B+1+"번 슬라이드 : " + Math.floor(arr[B]/60) + "분 " + Math.round(arr[B]%60) + "초");
+          const lb1=document.createElement("BR");
+          const textNode2 = document.createTextNode(title_list[B]);
+
+          li.appendChild(textNode);
+          li.appendChild(lb1);
+          li.appendChild(textNode2);
+
+          // 3. 생성된 li를 ol에 추가
+          document
+            .getElementById('fruits')
+            .appendChild(li);
+
+        }
+
+      })
+
+      $('li').on("click", function() {
+        console.log($('li').index(this)+1);
+        var idd= $('li').index(this)+1;
+
+        for(A = 0; A < objKeyArr.length; ++A) {
+          if(idd == A+1) {
+            tt = Number(arr[A]);
+            tt *=1;
+            vid.currentTime=tt;
+          }
+        }
+      });
+
+
+      $('li').on('hover focus', function() {
+        //console.log($('li').index(this)+1);
+        console.log($('li').getElementById);
+        var idd= $('li').index(this)+1;
+
+        for(A = 0; A < objKeyArr.length; ++A) {
+          if(idd == A+1) {
+            tt = Number(arr[A]);
+            tt *=1;
+            video.currentTime=tt;
+
+          }
+        }
+      });
+
+    }
+    </script>
+</body>
+</html>
