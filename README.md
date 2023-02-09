@@ -1,5 +1,5 @@
 <h1 align="center"> 
-시각장애 학생을 위한 온라인 동영상 강의 화면의 음성 해설 서비스<br/>
+시각장애 학생을 위한 동영상 강의 화면 음성 해설 서비스<br/>
 Automatic Voice Commentary System for Online Video Lecture for Visually Impaired Students
   
 <br>
@@ -17,17 +17,18 @@ Automatic Voice Commentary System for Online Video Lecture for Visually Impaired
 ## 프로젝트 배경
 * 코로나 바이러스의 확산 방지를 위해 대다수의 교육기관에서 비대면 강의 시스템을 도입하였음
 * 동영상 강의는 비대면 강의 시스템의 많은 부분을 차지하고 있음
-* 그러나, 시각장애 학생들은 **돋영상 강의의 화면에 무엇이 나오는지 알 수가 없어 강의 내용 이해도가 떨어지는 문제가 발생함**
+* 그러나, 시각장애 학생들은 **동영상 강의의 화면에 무엇이 나오는지 알 수가 없어 강의 내용 이해도가 떨어지는 문제가 발생함**
 * 또한 강의자료와 함께 사용하기도 어려워서 현재 수업하는 내용이 **강의자료에서 몇 페이지에 해당하는 지도 알기 어려움**
 
 
-<h3 align="center"> 따라서 화면에 강의자료의 몇 번째 페이지가 나오는지 내용과 함께 해설해주는 시스템을 구축하고, <br/>
+<h3 align="center"> 따라서 화면 등장하는 강의자료의 페이지 정보를 내용과 함께 해설해주는 시스템을 구축하고, <br/>
   이러한 자동 해설 동영상을 사용하기 용이하도록 전용 웹 플레이어를 함께 제공하고자 함!</h3>
 
 <br/>
 
-## 시연 및 발표 영상
-[![Video Label](http://img.youtube.com/vi/qrxdCjk2UBw/0.jpg)](https://youtu.be/qrxdCjk2UBw)
+## 발표 영상 및 논문 링크
+[![Video Label](http://img.youtube.com/vi/qrxdCjk2UBw/0.jpg)](https://youtu.be/qrxdCjk2UBw)\
+논문 링크: [박동연, 강소정, 김유진 and 임순범. (2022). 시각장애 학생을 위한 온라인 동영상 강의의 자동 해설 시스템. 한국HCI학회 논문지, 17(2), 31-39.](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002852907)
 
 ## 시연 예시 이미지
 원본 강의 업로드 (교수자 화면)
