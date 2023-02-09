@@ -43,12 +43,15 @@ Automatic Voice Commentary System for Online Video Lecture for Visually Impaired
 
 <br/>
 
-## 발표 영상 및 논문 (Click!)
+## 발표 영상 및 논문
 
 <p align="center">
-  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/video_button.png" height="300" href="https://youtu.be/qrxdCjk2UBw">&nbsp;
-  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/paper_img.png" height="300" href="https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002852907"/>
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/video_button.png" height="300">&nbsp;
+  <img src="https://github.com/DyeonPark/commenting-lecture-slide/blob/main/docs/paper_img.png" height="300"/>
 </p>
+
+* 시연 및 발표 영상 링크: https://youtu.be/qrxdCjk2UBw
+* 프로젝트 관련 저술 논문 링크: http://doi.org/10.17210/jhsk.2022.06.17.2.31
 
 <br/>
 
