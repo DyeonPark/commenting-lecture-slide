@@ -108,7 +108,7 @@ python manage.py runserver
 
 <br/>
 
-## 설치 환경
+## 실행 환경
 브라우저 : Internet Explorer, Firefox (Chrome, Microsoft Edge 제외)
 
 <br/>
