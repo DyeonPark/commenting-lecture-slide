@@ -1,7 +1,25 @@
-# 숙명여자대학교 IT공학전공 2021년 1학기 졸업 프로젝트
+<h1 align="center"> 
+시각장애 학생을 위한 온라인 동영상 강의 화면의 음성 해설 서비스<br/>
+Automatic Voice Commentary System for Online Video Lecture for Visually Impaired Students
+  
+<br>
+  
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white">
+<img src="https://img.shields.io/badge/OpenCV-5C3EE8?style=flat&logo=OpenCV&logoColor=white">
+<img src="https://img.shields.io/badge/pandas-150458?style=flat&logo=pandas&logoColor=white">
+<img src="https://img.shields.io/badge/Google Translate-4285F4?style=flat&logo=Google Translate&logoColor=white">  
+<img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=Django&logoColor=white"> 
+<h4 align="center">숙명여자대학교 IT공학전공 2021년 1학기 졸업 프로젝트</h4>
+</h1>
 
-## 프로젝트명 
-#### 코로나 시대의 시각장애대학생을 위한 온라인 동영상 강의 화면의 자동 음성 해설 서비스
+<br/>
+
+## 프로젝트 배경
+* 코로나 바이러스의 확산 방지를 위해 대다수의 교육기관에서 비대면 강의 시스템을 도입하였음
+* 동영상 강의는 비대면 강의 시스템의 많은 부분을 차지하고 있음
+* 그러나, 시각장애 학생들은 **돋영상 강의의 화면에 무엇이 나오는지 알 수가 없어 강의 내용 이해도가 떨어지는 문제가 발생함**
+* 또한 강의자료와 함께 사용하기도 어려워서 현재 나오는 화면이 강의자료에서 몇 페이지에 해당하는 지도 알 수 없음
+→ 따라서
 
 ## 프로젝트 설명
 강의 동영상 파일에 강의 슬라이드 화면을 읽어주는 해설을 추가한 비디오 파일을 시각장애 학생이 사용하기 용이하도록 전용 웹 플레이어로 재생할 수 있도록 한다
