@@ -18,14 +18,17 @@ Automatic Voice Commentary System for Online Video Lecture for Visually Impaired
 * 코로나 바이러스의 확산 방지를 위해 대다수의 교육기관에서 비대면 강의 시스템을 도입하였음
 * 동영상 강의는 비대면 강의 시스템의 많은 부분을 차지하고 있음
 * 그러나, 시각장애 학생들은 **돋영상 강의의 화면에 무엇이 나오는지 알 수가 없어 강의 내용 이해도가 떨어지는 문제가 발생함**
-* 또한 강의자료와 함께 사용하기도 어려워서 현재 나오는 화면이 강의자료에서 몇 페이지에 해당하는 지도 알 수 없음
-→ 따라서
+* 또한 강의자료와 함께 사용하기도 어려워서 현재 수업하는 내용이 **강의자료에서 몇 페이지에 해당하는 지도 알기 어려움**
 
-## 프로젝트 설명
-강의 동영상 파일에 강의 슬라이드 화면을 읽어주는 해설을 추가한 비디오 파일을 시각장애 학생이 사용하기 용이하도록 전용 웹 플레이어로 재생할 수 있도록 한다
 
-## 발표 영상 링크
-https://youtu.be/qrxdCjk2UBw
+<h3 align="center"> 따라서 화면에 강의자료의 몇 번째 페이지가 나오는지 내용과 함께 해설해주는 시스템을 구축하고, <br/>
+  이러한 자동 해설 동영상을 사용하기 용이하도록 전용 웹 플레이어를 함께 제공하고자 함!</h3>
+
+<br/>
+
+## 시연 및 발표 영상
+[![Video Label](http://img.youtube.com/vi/qrxdCjk2UBw/0.jpg)](https://youtu.be/qrxdCjk2UBw)
+
 
 ## 실행 방법
 
@@ -101,3 +104,5 @@ https://poppler.freedesktop.org/
 #### Dongyeon Park: yeon0729@sookmyung.ac.kr
 #### Sojeong Kang: thwjdrkd7@naver.com
 #### Yujin Kim: heather0220@sookmyung.ac.kr
+
+Original Repository: https://github.com/Commentor/commenting-video-lecture
